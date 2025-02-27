@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: theme.colors.primary,
   },
+  colorSecondary: {
+    color: theme.colors.secondary,
+  },
   colorTextBar: {
     color: theme.colors.textBar,
   },

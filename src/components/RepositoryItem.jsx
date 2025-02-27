@@ -1,27 +1,81 @@
-import { View, Text } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
+import Text from "./Text";
+import theme from "../theme";
 
 const RepositoryItem = (props) => {
   const { item } = props;
-  const did = {
-    id: "reduxjs.redux",
-    fullName: "reduxjs/redux",
-    description: "Predictable state container for JavaScript apps",
-    language: "TypeScript",
-    forksCount: 13902,
-    stargazersCount: 52869,
-    ratingAverage: 0,
-    reviewCount: 0,
-    ownerAvatarUrl: "https://avatars3.githubusercontent.com/u/13142323?v=4",
+  const styles = StyleSheet.create({
+    container: {
+      padding: theme.spacing.medium,
+      backgroundColor: "white",
+      gap: 15,
+    },
+    avatarAndInfo: {
+      flexDirection: "row",
+      gap: 15,
+    },
+    avatar: {
+      width: 50,
+      height: 50,
+    },
+    info: {
+      alignItems: "flex-start",
+      flexShrink: 1,
+      gap: 3,
+    },
+    language: {
+      backgroundColor: theme.colors.primary,
+      borderRadius: 3,
+      padding: 5,
+      color: "white",
+    },
+    countersContainer: {
+      flexDirection: "row",
+      // backgroundColor: "red",
+      flexBasis: "50%",
+      justifyContent: "space-around",
+      alignItems: "center",
+    },
+    singleCountersContainer: {
+      alignItems: "center",
+    },
+    // counterValue:{
+    //   fontWeight: "bold",
+    // }
+    // counterLabel:{
+    //   color:
+    // }
+  });
+  const counter = (label, counterString) => {
+    let counter = Number(counterString);
+    if (counter >= 1000) {
+      counter = `${(counter / 1000).toFixed(1)}k`;
+    }
+    return (
+      <View style={styles.singleCountersContainer}>
+        <Text fontWeight="bold">{counter}</Text>
+        <Text color="textSecondary">{label}</Text>
+      </View>
+    );
   };
   return (
-    <View>
-      <Text>Full name: {item.fullName}</Text>
-      <Text>Description: {item.description}</Text>
-      <Text>Language: {item.language}</Text>
-      <Text>Stars: {item.stargazersCount}</Text>
-      <Text>Forks: {item.forksCount}</Text>
-      <Text>Reviews: {item.reviewCount}</Text>
-      <Text>Rating: {item.ratingAverage}</Text>
+    <View style={styles.container}>
+      <View style={styles.avatarAndInfo}>
+        <Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl }} />
+        <View style={styles.info}>
+          <Text fontSize="subheading" fontWeight="bold">
+            {item.fullName}
+          </Text>
+          <Text color="textSecondary">{item.description}</Text>
+          <Text style={styles.language}>{item.language}</Text>
+        </View>
+      </View>
+      <View style={styles.countersContainer}>
+        {counter("Stars", item.stargazersCount)}
+        {counter("Forks", item.forksCount)}
+        {counter("Reviews", item.reviewCount)}
+        {counter("Rating", item.ratingAverage)}
+      </View>
     </View>
   );
 };

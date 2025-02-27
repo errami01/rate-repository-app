@@ -4,6 +4,8 @@ const theme = {
     textSecondary: "#586069",
     textBar: "white",
     primary: "#0366d6",
+    secondary: "#e1e4e8",
+
     appBar: "#24292e",
   },
   fontSizes: {
@@ -16,6 +18,12 @@ const theme = {
   fontWeights: {
     normal: "400",
     bold: "700",
+  },
+  spacing: {
+    small: 8,
+    medium: 16,
+    large: 24,
+    extraLarge: 32,
   },
 };
 
