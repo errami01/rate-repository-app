@@ -2,10 +2,9 @@ const theme = {
   colors: {
     textPrimary: "#24292e",
     textSecondary: "#586069",
-    textBar: "white",
+    textThird: "white",
     primary: "#0366d6",
     secondary: "#e1e4e8",
-
     appBar: "#24292e",
   },
   fontSizes: {

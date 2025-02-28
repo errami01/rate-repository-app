@@ -5,7 +5,7 @@ import { Link } from "react-router-native";
 const AppBarTab = ({ text, to }) => {
   return (
     <Link to={to}>
-      <Text color="textBar" fontSize="subheading" fontWeight="bold">
+      <Text color="textThird" fontSize="subheading" fontWeight="bold">
         {text}
       </Text>
     </Link>
