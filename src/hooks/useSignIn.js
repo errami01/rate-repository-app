@@ -5,9 +5,10 @@ const useSignIn = () => {
   const [mutate, result] = useMutation(SIGN_IN);
   const signIn = async (credentials) => {
     try {
-      return await mutate({
+      const { data } = await mutate({
         variables: { credentials },
       });
+      return data.authenticate.accessToken;
     } catch (error) {
       console.error(error);
     }
