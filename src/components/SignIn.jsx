@@ -3,6 +3,7 @@ import Text from "./Text";
 import { useFormik } from "formik";
 import theme from "../theme";
 import * as yup from "yup";
+import useSignIn from "../hooks/useSignIn";
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
@@ -12,6 +13,16 @@ const initialValues = {
   password: "",
 };
 const SignIn = () => {
+  const [signIn] = useSignIn();
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    try {
+      const { data } = await signIn({ username, password });
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -41,17 +52,15 @@ const SignIn = () => {
     },
   });
 
-  const onSubmit = (values) => {
-    console.log("Submitting form", values);
-    // TODO: Add your logic to handle form submission
-  };
-
   return (
     <View style={styles.container}>
       <TextInput
         style={{
           ...styles.input,
-          borderColor: formik.touched.username && formik.errors.username ? theme.colors.error : "gray",
+          borderColor:
+            formik.touched.username && formik.errors.username
+              ? theme.colors.error
+              : "gray",
         }}
         placeholder="Username"
         value={formik.values.username}
@@ -64,7 +73,10 @@ const SignIn = () => {
       <TextInput
         style={{
           ...styles.input,
-          borderColor: formik.touched.password && formik.errors.password ? theme.colors.error : "gray",
+          borderColor:
+            formik.touched.password && formik.errors.password
+              ? theme.colors.error
+              : "gray",
         }}
         placeholder="Password"
         value={formik.values.password}
