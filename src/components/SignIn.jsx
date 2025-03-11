@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import theme from "../theme";
 import * as yup from "yup";
 import useSignIn from "../hooks/useSignIn";
-import AuthStorage from "../utils/authStorage";
+import { useNavigate } from "react-router-native";
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
   password: yup.string().required("Password is required"),
@@ -14,15 +14,13 @@ const initialValues = {
   password: "",
 };
 const SignIn = () => {
-  const authStorage = new AuthStorage();
   const [signIn] = useSignIn();
+  const navigate = useNavigate();
   const onSubmit = async (values) => {
     const { username, password } = values;
     try {
-      const accessToken = await signIn({ username, password });
-      await authStorage.setAccessToken(accessToken);
-      const savedToken = await authStorage.getAccessToken();
-      console.log(savedToken);
+      await signIn({ username, password });
+      navigate("/");
     } catch (e) {
       console.log(e);
     }
